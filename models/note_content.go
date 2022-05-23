@@ -6,6 +6,7 @@ import "time"
 type NoteContent struct {
 	ID          int64     `gorm:"primary_key;auto_incriment" json:"id"`
 	NoteID      int       `json:"note_id"`
+	Note        Note      `gorm:"foreignKey:NoteID"`
 	Description string    `json:"description"`
 	Text_body   string    `json:"text_body"`
 	IsActive    bool      `json:"is_active"`
