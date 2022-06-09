@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"note_add/note_add_api/api/controllers"
 	"note_add/note_add_api/api/repositories"
 	"note_add/note_add_api/api/routes"
@@ -23,7 +24,10 @@ func main() {
 	postRoute := routes.NoteAddUserRoute(postController, router)
 	postRoute.Setup()
 
-	db.DB.AutoMigrate(&models.User{})
+	// Check if table exists
+	if err := db.DB.AutoMigrate(&models.User{}, &models.Note{}, &models.NoteContent{}); err != nil {
+		errors.New("Unable autoMigrateDB - " + err.Error())
+	}
 
 	router.Gin.Run(":7000")
 }
