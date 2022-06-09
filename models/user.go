@@ -12,3 +12,32 @@ type User struct {
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 }
+
+// Returns the table name of the Model
+func (users *User) TableName() string {
+	return "user"
+}
+
+// Request Binding for User Login
+type UserLogin struct {
+	Email    string `form:"email"  binding:"required"`
+	Password string `form:"password"  binding:"required"`
+}
+
+// Request Binding  for User Registration
+type UserRegistration struct {
+	Email    string `form:"email" json:"email" binding:"required"`
+	Username string `form:"username" json:"username"`
+	Password string `form:"password" json:"password" binding:"required"`
+}
+
+func (user *User) ResponseMap() map[string]interface{} {
+	resp := make(map[string]interface{})
+	resp["id"] = user.ID
+	resp["email"] = user.Email
+	resp["password"] = user.Password
+	resp["username"] = user.Username
+	resp["is_active"] = user.IsActive
+
+	return resp
+}
