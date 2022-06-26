@@ -25,7 +25,7 @@ func main() {
 	postRoute.Setup()
 
 	// Check if table exists
-	if err := db.DB.AutoMigrate(&models.User{}, &models.Note{}, &models.NoteContent{}); err != nil {
+	if err := db.DB.AutoMigrate(&models.User{}, &models.Notes{}, &models.NoteContents{}); err != nil {
 		errors.New("Unable autoMigrateDB - " + err.Error())
 	}
 
