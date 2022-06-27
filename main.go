@@ -18,11 +18,19 @@ func main() {
 	router := infrastructure.NoteAddRouter()
 	db := infrastructure.NoteAddDatabase()
 
+	// User
 	postRepository := repositories.NoteAddUserRepository(db)
 	postService := services.NoteAddUserService(postRepository)
 	postController := controllers.NoteAddUserController(postService)
 	postRoute := routes.NoteAddUserRoute(postController, router)
 	postRoute.Setup()
+
+	// Note
+	noteRepository := repositories.SaveNotesRepository(db)
+	noteService := services.SaveNoteService(noteRepository)
+	noteController := controllers.SaveNotesController(noteService)
+	noteRoute := routes.SaveNoteRoute(noteController, router)
+	noteRoute.Setup()
 
 	// Check if table exists
 	if err := db.DB.AutoMigrate(&models.User{}, &models.Notes{}, &models.NoteContents{}); err != nil {
