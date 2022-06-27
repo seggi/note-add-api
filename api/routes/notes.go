@@ -23,5 +23,6 @@ func (n NotesRoute) Setup() {
 	note := n.Handler.Gin.Group("/note")
 	{
 		note.POST("/record-new-note", n.Controller.SaveNotes)
+		note.PUT("/update-note", n.Controller.UpdateNote)
 	}
 }

@@ -15,6 +15,8 @@ func SaveNotesRepository(db infrastructure.Database) NotesRepository {
 	}
 }
 
+// Record new note title
+
 func (n NotesRepository) SaveNotes(note models.SaveNotes) error {
 	var dbNotes models.Notes
 	dbNotes.UserID = note.UserID
@@ -26,4 +28,20 @@ func (n NotesRepository) SaveNotes(note models.SaveNotes) error {
 	}
 
 	return n.db.DB.Create(&dbNotes).Error
+}
+
+// Update note title name
+
+func (n NotesRepository) UpdateNotes(note models.SaveNotes) error {
+	var dbNotes models.Notes
+	dbNotes.UserID = note.UserID
+	dbNotes.Title = note.Title
+
+	err := n.db.DB.Model(&dbNotes).Where("user_id = ?", note.UserID).Error
+	if err != nil {
+		return err
+	}
+
+	n.db.DB.Model(&dbNotes).Where("user_id = ?", note.UserID).Update("title", note.Title)
+	return nil
 }

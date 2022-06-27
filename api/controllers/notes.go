@@ -34,3 +34,19 @@ func (n *NotesController) SaveNotes(c *gin.Context) {
 
 	utils.SuccessJSON(c, http.StatusOK, "Note title saved with success")
 }
+
+func (n *NotesController) UpdateNote(c *gin.Context) {
+	var note models.SaveNotes
+
+	if err := c.ShouldBind(&note); err != nil {
+		utils.ErrorJSON(c, http.StatusBadRequest, "Invalid Json Provided")
+	}
+
+	err := n.service.UpdateNote(note)
+
+	if err != nil {
+		utils.ErrorJSON(c, http.StatusBadRequest, "Error updating Note title")
+		return
+	}
+	utils.SuccessJSON(c, http.StatusOK, "Note title updated with success")
+}
