@@ -43,9 +43,12 @@ func (u *UserController) CreateUser(c *gin.Context) {
 }
 
 // Login user: Generates JWT Token for validated user
+
 func (u *UserController) Login(c *gin.Context) {
+
 	var user models.UserLogin
 	var hmacSampleSecret []byte
+
 	if err := c.ShouldBindJSON(&user); err != nil {
 		utils.ErrorJSON(c, http.StatusBadRequest, "Invalid Json Provided")
 		return
@@ -56,6 +59,7 @@ func (u *UserController) Login(c *gin.Context) {
 		utils.ErrorJSON(c, http.StatusBadRequest, "Invalid Login Credentials")
 		return
 	}
+
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user": dbUser,
 		"exp":  time.Now().Add(time.Minute * 15).Unix(),
