@@ -26,6 +26,10 @@ func (u UserRepository) CreateUser(user models.UserRegistration) error {
 	dbUser.Username = user.Username
 	dbUser.IsActive = true
 
+	err := u.db.DB.Where("email = ?", user.Email).Find(&dbUser).Error
+	if err != nil {
+		return err
+	}
 	return u.db.DB.Create(&dbUser).Error
 }
 

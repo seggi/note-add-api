@@ -13,7 +13,6 @@ type Notes struct {
 	Title     string    `json:"title"`
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
-	DeletedAt time.Time `json:"deleted_at,omitempty"`
 }
 
 func (notes *Notes) TableName() string {
@@ -21,14 +20,14 @@ func (notes *Notes) TableName() string {
 }
 
 type SaveNotes struct {
-	UserID int    `form:"userID" binding:"required"`
+	UserID int    `form:"user_id" binding:"required"`
 	Title  string `form:"title" binding:"required"`
 }
 
 func (notes *Notes) ResponseMap() map[string]interface{} {
 	resp := make(map[string]interface{})
 	resp["id"] = notes.ID
-	resp["userId"] = notes.UserID
+	resp["user_id"] = notes.UserID
 	resp["title"] = notes.Title
 
 	return resp
