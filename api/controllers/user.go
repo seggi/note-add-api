@@ -5,10 +5,9 @@ import (
 	"note_add/note_add_api/api/services"
 	"note_add/note_add_api/models"
 	"note_add/note_add_api/utils"
-	"time"
+	"note_add/note_add_api/utils/token"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt"
 )
 
 // User controller struct
@@ -47,7 +46,6 @@ func (u *UserController) CreateUser(c *gin.Context) {
 func (u *UserController) Login(c *gin.Context) {
 
 	var user models.UserLogin
-	var hmacSampleSecret []byte
 
 	if err := c.ShouldBindJSON(&user); err != nil {
 		utils.ErrorJSON(c, http.StatusBadRequest, "Invalid Json Provided")
@@ -60,12 +58,8 @@ func (u *UserController) Login(c *gin.Context) {
 		return
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"user": dbUser,
-		"exp":  time.Now().Add(time.Minute * 15).Unix(),
-	})
+	tokenString, err := token.GenerateToken(dbUser)
 
-	tokenString, err := token.SignedString(hmacSampleSecret)
 	if err != nil {
 		utils.ErrorJSON(c, http.StatusBadRequest, "Failed to get token")
 		return
