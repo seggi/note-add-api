@@ -11,7 +11,6 @@ type NoteContents struct {
 	TextBody    string    `json:"text_body"`
 	CreatedAt   time.Time `json:"created_at,omitempty"`
 	UpdatedAt   time.Time `json:"updated_at,omitempty"`
-	DeletedAt   time.Time `json:"deleted_at,omitempty"`
 }
 
 func (noteContents *NoteContents) TableName() string {
@@ -19,9 +18,9 @@ func (noteContents *NoteContents) TableName() string {
 }
 
 type SaveNoteContents struct {
-	NoteID      int    `form:"noteID" binding:"required"`
-	Description string `form:"description"`
-	TextBody    string `form:"text_body"`
+	NoteID      int    `form:"note_id" json:"note_id" binding:"required"`
+	Description string `form:"description" json:"description" binding:"required"`
+	TextBody    string `form:"text_body" json:"text_body" binding:"required"`
 }
 
 func (noteContents *NoteContents) ResponseMap() map[string]interface{} {

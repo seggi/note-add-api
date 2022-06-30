@@ -32,6 +32,13 @@ func main() {
 	noteRoute := routes.SaveNoteRoute(noteController, router)
 	noteRoute.Setup()
 
+	// Note Content
+	noteContentRepository := repositories.SaveNoteContentsRepository(db)
+	noteContentService := services.SaveNoteContentService(noteContentRepository)
+	noteContentController := controllers.SaveNotesContentController(noteContentService)
+	noteContentRoute := routes.SaveNoteContentRoute(noteContentController, router)
+	noteContentRoute.Setup()
+
 	// Check if table exists
 	if err := db.DB.AutoMigrate(&models.User{}, &models.Notes{}, &models.NoteContents{}); err != nil {
 		errors.New("Unable autoMigrateDB - " + err.Error())
