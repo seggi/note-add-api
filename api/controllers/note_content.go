@@ -46,3 +46,22 @@ func (n *NotesContentController) UpdateNoteContents(c *gin.Context) {
 	}
 	utils.SuccessJSON(c, http.StatusOK, "Note title updated with success")
 }
+
+func (n *NotesContentController) GetNoteContents(c *gin.Context) {
+	var noteContent models.NoteContents
+
+	if err := c.ShouldBindJSON(&noteContent); err != nil {
+		utils.ErrorJSON(c, http.StatusBadRequest, "Invalid Json Provided")
+		return
+	}
+
+	dbNoteContent, err := n.services.GetNoteContents(noteContent)
+
+	if err != nil {
+		utils.ErrorJSON(c, http.StatusBadRequest, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, &dbNoteContent)
+
+}

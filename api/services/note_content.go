@@ -22,3 +22,7 @@ func (n NoteContentServices) SaveNoteContents(note models.SaveNoteContents) erro
 func (n NoteContentServices) UpdateNoteContents(note models.SaveNoteContents) error {
 	return n.repo.UpdateNoteContents(note)
 }
+
+func (n NoteContentServices) GetNoteContents(note models.NoteContents) (*models.NoteContents, error) {
+	return n.repo.GetNoteContents(note)
+}

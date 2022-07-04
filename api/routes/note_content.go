@@ -25,5 +25,6 @@ func (n NoteContentRoute) Setup() {
 		// note.Use(middlewares.JwtAuthMiddleware())
 		note.POST("/record-note-content", n.Controller.SaveNoteContents)
 		note.PUT("/update-note-content", n.Controller.UpdateNoteContents)
+		note.GET("/get-note-content", n.Controller.GetNoteContents)
 	}
 }
