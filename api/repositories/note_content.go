@@ -9,6 +9,11 @@ type NoteContentRepository struct {
 	db infrastructure.Database
 }
 
+type NoteContentResult struct {
+	Description string
+	TextBody    string
+}
+
 func SaveNoteContentsRepository(db infrastructure.Database) NoteContentRepository {
 	return NoteContentRepository{
 		db: db,
@@ -32,4 +37,17 @@ func (n NoteContentRepository) UpdateNoteContents(note models.SaveNoteContents) 
 
 	n.db.DB.Model(&dbNoteContent).Where("note_id = ?", note.NoteID).Updates(map[string]interface{}{"description": note.Description, "text_body": note.TextBody})
 	return nil
+}
+
+func (n NoteContentRepository) GetNoteContents(noteContent models.NoteContents) (*models.NoteContents, error) {
+	var dbNoteContent models.NoteContents
+	noteId := noteContent.NoteID
+
+	err := n.db.DB.Joins("JOIN notes ON notes.id = noteContents.note_id").Where("notes.user_id = ?", noteId).Find(&dbNoteContent).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &dbNoteContent, err
 }

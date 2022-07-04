@@ -18,6 +18,7 @@ func (noteContents *NoteContents) TableName() string {
 }
 
 type SaveNoteContents struct {
+	UserID      int    `form:"user_id" json:"user_id" binding:"required"`
 	NoteID      int    `form:"note_id" json:"note_id" binding:"required"`
 	Description string `form:"description" json:"description" binding:"required"`
 	TextBody    string `form:"text_body" json:"text_body" binding:"required"`
