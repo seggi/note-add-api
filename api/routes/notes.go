@@ -26,5 +26,6 @@ func (n NotesRoute) Setup() {
 		note.Use(middlewares.JwtAuthMiddleware())
 		note.POST("/record-new-note", n.Controller.SaveNotes)
 		note.PUT("/update-note", n.Controller.UpdateNote)
+		note.GET("/get-notes", n.Controller.GetNotes)
 	}
 }

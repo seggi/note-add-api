@@ -45,3 +45,16 @@ func (n NotesRepository) UpdateNotes(note models.SaveNotes) error {
 	n.db.DB.Model(&dbNotes).Where("user_id = ?", note.UserID).Update("title", note.Title)
 	return nil
 }
+
+func (n NotesRepository) GetNotes(note models.Notes) (*models.Notes, error) {
+	var dbNotes models.Notes
+	userId := note.UserID
+
+	err := n.db.DB.Joins("JOIN user ON user.id = notes.user_id").Where("notes.user_id = ?", userId).Find(&dbNotes).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &dbNotes, err
+}
