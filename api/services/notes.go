@@ -22,3 +22,7 @@ func (n NotesService) SaveNotes(note models.SaveNotes) error {
 func (n NotesService) UpdateNote(note models.SaveNotes) error {
 	return n.repo.UpdateNotes(note)
 }
+
+func (n NotesService) GetNotes(note models.Notes) (*models.Notes, error) {
+	return n.repo.GetNotes(note)
+}
