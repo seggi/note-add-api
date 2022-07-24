@@ -8,6 +8,7 @@ import (
 	"note_add/note_add_api/api/services"
 	"note_add/note_add_api/infrastructure"
 	"note_add/note_add_api/models"
+	"os"
 )
 
 func init() {
@@ -44,5 +45,7 @@ func main() {
 		errors.New("Unable autoMigrateDB - " + err.Error())
 	}
 
-	router.Gin.Run(":7000")
+	port := os.Getenv("PORT")
+
+	router.Gin.Run(":" + port)
 }
