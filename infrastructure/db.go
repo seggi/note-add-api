@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -16,16 +16,12 @@ type Database struct {
 // Database initialized and returns mysql  db
 
 func NoteAddDatabase() Database {
-	USER := os.Getenv("DB_USER")
-	PASS := os.Getenv("DB_PASSWORD")
-	HOST := os.Getenv("DB_HOST")
-	DB_NAME := os.Getenv("DB_NAME")
+	DB_URL := os.Getenv("postgres://ffhyfswyqaxkyf:78962915610884f7651e62944feb321e64600786fd02d16eaddfef437a182378@ec2-34-235-198-25.compute-1.amazonaws.com:5432/dcvb1smjrbgapl")
 
-	URL := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local", USER, PASS,
-		HOST, DB_NAME)
+	URL := DB_URL
 
 	fmt.Println(URL)
-	db, err := gorm.Open(mysql.Open(URL))
+	db, err := gorm.Open(postgres.Open(URL), &gorm.Config{})
 
 	if err != nil {
 		panic("Failed to connect to database!")
