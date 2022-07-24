@@ -16,7 +16,7 @@ type Database struct {
 // Database initialized and returns mysql  db
 
 func NoteAddDatabase() Database {
-	DB_URL := os.Getenv("postgres://ffhyfswyqaxkyf:78962915610884f7651e62944feb321e64600786fd02d16eaddfef437a182378@ec2-34-235-198-25.compute-1.amazonaws.com:5432/dcvb1smjrbgapl")
+	DB_URL := os.Getenv("DB_DEV_URL")
 
 	URL := DB_URL
 
