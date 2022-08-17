@@ -50,7 +50,7 @@ func (n NotesRepository) GetNotes(note models.Notes) (*models.Notes, error) {
 	var dbNotes models.Notes
 	userId := note.UserID
 
-	err := n.db.DB.Joins("JOIN user ON user.id = notes.user_id").Where("notes.user_id = ?", userId).Find(&dbNotes).Error
+	err := n.db.DB.Joins("left join user on user.id = notes.user_id").Where("notes.user_id = ?", userId).Order("created_at desc").Find(&dbNotes).Error
 
 	if err != nil {
 		return nil, err
