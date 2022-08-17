@@ -4,10 +4,10 @@ import "github.com/gin-gonic/gin"
 
 // Response  struct
 type Response struct {
-	Success     bool   `json:"success"`
-	Message     string `json:"message"`
-	Data        string `json:"data"`
-	AccessToken string `json:"access_token"`
+	Success     bool              `json:"success"`
+	Message     string            `json:"message"`
+	Data        map[string]string `json:"data"`
+	AccessToken string            `json:"access_token"`
 }
 
 // Json Error Response function

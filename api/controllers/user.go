@@ -69,6 +69,7 @@ func (u *UserController) Login(c *gin.Context) {
 		Success:     true,
 		Message:     "Token generated successfully",
 		AccessToken: tokenString,
+		Data:        map[string]string{},
 	}
 	c.JSON(http.StatusOK, response)
 }
