@@ -9,7 +9,7 @@ import (
 type Notes struct {
 	ID        int64     `gorm:"primary_key;auto_incriment" json:"id"`
 	UserID    int       `json:"user_id"`
-	User      User      `gorm:"foreignKey:UserID"`
+	User      Users     `gorm:"foreignKey:UserID"`
 	Title     string    `json:"title"`
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	UpdatedAt time.Time `json:"updated_at,omitempty"`

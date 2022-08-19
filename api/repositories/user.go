@@ -20,7 +20,7 @@ func NoteAddUserRepository(db infrastructure.Database) UserRepository {
 
 // Save user to database
 func (u UserRepository) CreateUser(user models.UserRegistration) error {
-	var dbUser models.User
+	var dbUser models.Users
 	dbUser.Email = user.Email
 	dbUser.Password = user.Password
 	dbUser.Username = user.Username
@@ -35,8 +35,8 @@ func (u UserRepository) CreateUser(user models.UserRegistration) error {
 
 // LoginUser  -> return user
 
-func (u UserRepository) LoginUser(user models.UserLogin) (*models.User, error) {
-	var dbUser models.User
+func (u UserRepository) LoginUser(user models.UserLogin) (*models.Users, error) {
+	var dbUser models.Users
 	email := user.Email
 	password := user.Password
 

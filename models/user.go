@@ -1,21 +1,26 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 // User Model
-type User struct {
-	ID        int64     `gorm:"primary_key;auto_incriment" json:"id"`
-	Email     string    `json:"email"`
-	Username  string    `json:"username"`
-	Password  string    `json:"password"`
-	IsActive  bool      `json:"is_active"`
-	CreatedAt time.Time `json:"created_at,omitempty"`
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
+type Users struct {
+	ID        int64          `gorm:"primaryKey;auto_incriment" json:"id"`
+	Email     string         `json:"email"`
+	Username  string         `json:"username"`
+	Password  string         `json:"password"`
+	IsActive  bool           `json:"is_active"`
+	CreatedAt time.Time      `json:"created_at,omitempty"`
+	UpdatedAt time.Time      `json:"updated_at,omitempty"`
+	DeletedAt gorm.DeletedAt `gorm:"index"`
 }
 
 // Returns the table name of the Model
-func (users *User) TableName() string {
-	return "user"
+func (users *Users) TableName() string {
+	return "users"
 }
 
 // Request Binding for User Login
@@ -31,7 +36,7 @@ type UserRegistration struct {
 	Password string `form:"password" json:"password" binding:"required"`
 }
 
-func (user *User) ResponseMap() map[string]interface{} {
+func (user *Users) ResponseMap() map[string]interface{} {
 	resp := make(map[string]interface{})
 	resp["id"] = user.ID
 	resp["email"] = user.Email
