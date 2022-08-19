@@ -23,6 +23,6 @@ func (u UserService) CreateUser(user models.UserRegistration) error {
 }
 
 // Login  -> Gets validated user
-func (u UserService) LoginUser(user models.UserLogin) (*models.User, error) {
+func (u UserService) LoginUser(user models.UserLogin) (*models.Users, error) {
 	return u.repo.LoginUser(user)
 }
