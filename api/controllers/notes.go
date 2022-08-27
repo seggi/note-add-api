@@ -59,12 +59,10 @@ func (n *NotesController) GetNotes(c *gin.Context) {
 		return
 	}
 
-	dbNotes, err := n.service.GetNotes(notes)
+	// if err != nil {
+	// 	utils.ErrorJSON(c, http.StatusBadRequest, err)
+	// 	return
+	// }
 
-	if err != nil {
-		utils.ErrorJSON(c, http.StatusBadRequest, err)
-		return
-	}
-
-	c.JSON(http.StatusOK, &dbNotes)
+	c.JSON(http.StatusOK, n.service.GetNotes(notes))
 }
