@@ -23,6 +23,6 @@ func (n NotesService) UpdateNote(note models.SaveNotes) error {
 	return n.repo.UpdateNotes(note)
 }
 
-func (n NotesService) GetNotes(note models.Notes) (*models.Notes, error) {
+func (n NotesService) GetNotes(note models.Notes) []models.Notes {
 	return n.repo.GetNotes(note)
 }
