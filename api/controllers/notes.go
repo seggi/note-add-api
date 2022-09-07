@@ -53,16 +53,12 @@ func (n *NotesController) UpdateNote(c *gin.Context) {
 
 func (n *NotesController) GetNotes(c *gin.Context) {
 	var notes models.Notes
+	noteId := c.Param("id")
 
 	if err := c.ShouldBindJSON(&notes); err != nil {
 		utils.ErrorJSON(c, http.StatusBadRequest, "Invalid Json Provided")
 		return
 	}
 
-	// if err != nil {
-	// 	utils.ErrorJSON(c, http.StatusBadRequest, err)
-	// 	return
-	// }
-
-	c.JSON(http.StatusOK, n.service.GetNotes(notes))
+	c.JSON(http.StatusOK, n.service.GetNotes(notes, noteId))
 }
