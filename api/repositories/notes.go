@@ -46,13 +46,11 @@ func (n NotesRepository) UpdateNotes(note models.SaveNotes) error {
 	return nil
 }
 
-func (n NotesRepository) GetNotes(note models.Notes) []models.Notes {
+func (n NotesRepository) GetNotes(note models.Notes, noteId string) []models.Notes {
 	var dbNotes []models.Notes
-	userId := note.UserID
+	userId := noteId
 
-	where := n.db.DB.Model(&dbNotes).Where("user_id = ?", userId)
-
-	n.db.DB.Joins("User", where).Find(&dbNotes)
+	n.db.DB.Model(&dbNotes).Where("user_id = ?", userId).Find(&dbNotes)
 
 	return dbNotes
 }
